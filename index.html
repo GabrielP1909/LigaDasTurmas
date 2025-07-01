@@ -1,12 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LigaDasTurmas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- Pré-carregar imagens do jogo -->
+  <link rel="preload" href="imagens/gato.png" as="image">
+  <link rel="preload" href="imagens/girafa.png" as="image">
+  <link rel="preload" href="imagens/maça.png" as="image">
+  <link rel="preload" href="imagens/boboesponja.png" as="image">
+  <link rel="preload" href="imagens/amongus.png" as="image">
+  <link rel="preload" href="imagens/arvore.png" as="image">
+  <link rel="preload" href="imagens/carro.png" as="image">
+  <link rel="preload" href="imagens/estrela.png" as="image">
 </head>
 <body>
-  
+  <!-- Cabeçalho com logo e menu -->
+  <header class="cabecalho">
+    <div class="logo-container">
+      <div class="logo">LigaDasTurmas</div>
+      <div class="slogan">Diversão + Aprendizado = Sucesso!</div>
+    </div>
+    <nav>
+      <ul class="menu-navegacao">
+        <li><a href="#" aria-label="Início"><i class="fas fa-home"></i> Início</a></li>
+        <li><a href="#jogos" aria-label="Jogos"><i class="fas fa-gamepad"></i> Jogos</a></li>
+        <li><a href="#ranking" aria-label="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
+        <li><a href="#sobre" aria-label="Sobre"><i class="fas fa-info-circle"></i> Sobre</a></li>
+        <li><a href="#contato" aria-label="Contato"><i class="fas fa-envelope"></i> Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main class="secao-principal">
+    <section class="caixa-texto" id="sobre">
+      <h1><i class="fas fa-star"></i> Sobre o LigaDasTurmas</h1>
+      <div class="sobre-conteudo">
+        <div class="sobre-texto">
+          <p>O <strong>LigaDasTurmas</strong> é um site de jogos educativos que une diversão e aprendizado de forma inovadora!</p>
+          
+          <p><i class="fas fa-trophy"></i> <strong>Sistema de Premiação:</strong></p>
+          <ul class="faixa-etaria">
+            <li><span class="destaque">Cada acerto:</span> 50 pontos para sua turma</li>
+            <li><span class="destaque">Easter Egg:</span> 100 pontos extras quando encontrar!</li>
+            <li><span class="destaque">Premiação</span> para a turma com maior pontuação no final das apresentações!</li>
+          </ul>
+          
+          <p><i class="fas fa-gamepad"></i> <strong>Como funcionam os jogos:</strong></p>
+          <ul class="faixa-etaria">
+            <li><span class="destaque">Jogo de Silhuetas:</span> Adivinhe o que é pela sombra</li>
+            <li><span class="destaque">Quiz Fácil:</span> Perguntas divertidas com 4 alternativas</li>
+            <li><span class="destaque">Quiz Médio:</span> Perguntas mais desafiadoras</li>
+            <li><span class="destaque">Quiz Difícil:</span> Perguntas complexas que exigem raciocínio</li>
+          </ul>
+          
+          <p><i class="fas fa-users"></i> <strong>Competição saudável:</strong> Conquiste pontos, suba no ranking e mostre que sua turma é a melhor!</p>
+        </div>
+        <div class="sobre-imagem">
+          <img src="imagens/imagemsobre.png" alt="Ilustração sobre o jogo LigaDasTurmas" class="imagem-destaque">
+        </div>
+      </div>
+    </section>
+
+    <section class="caixa-jogos" id="jogos">
+      <h2><i class="fas fa-gamepad"></i> Escolha seu jogo</h2>
+      <div class="jogos-container">
+        <div class="jogo-card" id="silhuetas">
+          <h3>Jogo das Silhuetas</h3>
+          <div class="icone-jogo"><i class="fas fa-user-secret"></i></div>
+          <p>1º ao 3º ano</p>
+          <button class="btn-jogar" data-jogo="silhuetas" aria-label="Jogar Jogo das Silhuetas">Jogar</button>
+        </div>
+        <div class="jogo-card" id="quiz-facil">
+          <h3>Quiz Fácil</h3>
+          <div class="icone-jogo"><i class="fas fa-smile"></i></div>
+          <p>4º ao 6º ano</p>
+          <button class="btn-jogar" data-jogo="quiz-facil" aria-label="Jogar Quiz Fácil">Jogar</button>
+        </div>
+        <div class="jogo-card" id="quiz-medio">
+          <h3>Quiz Médio</h3>
+          <div class="icone-jogo"><i class="fas fa-meh"></i></div>
+          <p>7º ao 9º ano</p>
+          <button class="btn-jogar" data-jogo="quiz-medio" aria-label="Jogar Quiz Médio">Jogar</button>
+        </div>
+        <div class="jogo-card" id="quiz-dificil">
+          <h3>Quiz Difícil</h3>
+          <div class="icone-jogo"><i class="fas fa-flushed"></i></div>
+          <p>Ensino Médio</p>
+          <button class="btn-jogar" data-jogo="quiz-dificil" aria-label="Jogar Quiz Difícil">Jogar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="caixa-texto" id="ranking">
+      <h2><i class="fas fa-trophy"></i> Ranking das Turmas</h2>
+      <div id="ranking-geral" class="ranking-container"></div>
+    </section>
+  </main>
+
+  <!-- Modal de Login -->
+  <div id="modal-login" class="modal">
+    <div class="modal-conteudo">
+      <span class="fechar-modal" aria-label="Fechar modal">&times;</span>
+      <h2><i class="fas fa-lock"></i> Acesso Restrito</h2>
+      <p id="instrucao-jogo">Digite a senha da sua turma para jogar:</p>
+      <input type="password" id="senha-jogo" placeholder="Digite a senha da turma" aria-label="Senha do jogo">
+      <button id="btn-confirmar" aria-label="Confirmar senha">Confirmar</button>
+      <p id="mensagem-erro"></p>
+    </div>
+  </div>
+
+  <!-- Modal de Detalhes do Jogo -->
+  <div id="modal-detalhes" class="modal">
+    <div class="modal-conteudo">
+      <span class="fechar-modal" aria-label="Fechar modal">&times;</span>
+      <h2 id="titulo-detalhes"><i class="fas fa-info-circle"></i> Detalhes do Jogo</h2>
+      <div id="conteudo-detalhes"></div>
+    </div>
+  </div>
+
+  <!-- Modal do Jogo das Silhuetas -->
+  <div id="modal-silhuetas" class="modal-jogo">
+    <div class="jogo-conteudo">
+      <span class="fechar-jogo" aria-label="Fechar jogo">&times;</span>
+      <h2><i class="fas fa-user-secret"></i> Jogo das Silhuetas</h2>
+      
+      <div class="jogo-area">
+        <div id="silhueta-container">
+          <img id="silhueta-imagem" src="" alt="Silhueta do jogo" style="display: none;">
+          <p id="mensagem-carregando">Carregando jogo...</p>
+        </div>
+        <div id="opcoes-container" class="opcoes-grid"></div>
+      </div>
+      
+      <div class="jogo-info">
+        <p>Pontuação: <span id="pontuacao">0</span></p>
+        <p>Acertos: <span id="acertos">0</span>/<span id="total-perguntas">0</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elemento de áudio para efeitos sonoros -->
+  <audio id="som-acerto" preload="auto">
+    <source src="sons/acerto.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="som-erro" preload="auto">
+    <source src="sons/erro.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtn9E98d5hkwrQKERO4Wo0WF8sI8jhWVg",
+      authDomain: "projeto-liga.firebaseapp.com",
+      projectId: "projeto-liga",
+      storageBucket: "projeto-liga.appspot.com",
+      messagingSenderId: "268280362386",
+      appId: "1:268280362386:web:8b6c40cea41140b5b4fd4b",
+      measurementId: "G-3VD06W8M78",
+      databaseURL: "https://projeto-liga-default-rtdb.firebaseio.com/"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
