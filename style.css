@@ -23,6 +23,12 @@ body {
     flex-direction: column;
     align-items: center;
     color: var(--cor-texto);
+    overflow-x: hidden; /* Adicionado para remover o scroll horizontal */
+}
+
+/* Classe para aplicar desfoque ao body quando um modal estiver aberto */
+body.modal-aberto {
+    overflow: hidden; /* Impede rolagem do fundo */
 }
 
 /* ===== Cabeçalho ===== */
@@ -161,6 +167,7 @@ body {
 
 .imagem-destaque {
     max-width: 100%;
+
 }
 
 /* Parágrafos e listas */
@@ -285,9 +292,9 @@ body {
     transform: scale(1.05);
 }
 
-/* ===== Modal de Login ===== */
+/* ===== Modais Gerais ===== */
 .modal {
-    display: none;
+    display: none; /* ALTERADO: Oculta o modal por padrão */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -296,11 +303,13 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
+    /* display: flex; <-- REMOVIDO OU COMENTADO SE DUPLICADO */
+    justify-content: center; /* Adicionado para centralizar o conteúdo */
+    align-items: center; /* Adicionado para centralizar o conteúdo */
 }
 
 .modal-conteudo {
     background: linear-gradient(to bottom, var(--cor-secundaria), var(--cor-primaria));
-    margin: 15% auto;
     padding: 30px;
     border: 2px solid var(--cor-destaque);
     border-radius: 20px;
@@ -309,6 +318,7 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     position: relative;
     animation: modalFadeIn 0.3s;
+    box-sizing: border-box; /* Garante que padding não aumente a largura total */
 }
 
 @keyframes modalFadeIn {
@@ -386,7 +396,7 @@ body {
     color: var(--cor-texto);
 }
 
-#mensagem-erro {
+.mensagem-erro { /* Classe genérica para mensagens de erro */
     color: var(--cor-erro);
     text-align: center;
     margin-top: 15px;
@@ -446,9 +456,9 @@ body {
     background: #8c66ff;
 }
 
-/* ===== Estilo do Jogo das Silhuetas ===== */
+/* ===== Estilo do Jogo das Silhuetas (Modal de Jogo) ===== */
 .modal-jogo {
-    display: none;
+    display: none; /* ALTERADO: Oculta o modal do jogo por padrão */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -457,11 +467,13 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(5px);
+    /* display: flex; <-- REMOVIDO OU COMENTADO SE DUPLICADO */
+    justify-content: center; /* Adicionado para centralizar o conteúdo */
+    align-items: center; /* Adicionado para centralizar o conteúdo */
 }
 
 .jogo-conteudo {
     background: linear-gradient(to bottom, var(--cor-primaria), var(--cor-secundaria));
-    margin: 2% auto;
     padding: 25px;
     border: 3px solid var(--cor-destaque);
     border-radius: 20px;
@@ -470,6 +482,7 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     position: relative;
     animation: modalFadeIn 0.4s;
+    box-sizing: border-box;
 }
 
 .jogo-area {
@@ -495,7 +508,7 @@ body {
 #silhueta-imagem {
     max-width: 100%;
     max-height: 100%;
-    filter: brightness(0) contrast(100%);
+    filter: brightness(0) contrast(100%); /* Transforma a imagem em silhueta preta */
     animation: aparecer 0.5s ease-out;
 }
 
@@ -588,14 +601,16 @@ body {
 
 .modal-final-conteudo {
     background: linear-gradient(to bottom, var(--cor-primaria), var(--cor-secundaria));
-    border-radius: 20px;
     padding: 30px;
+    border: 3px solid var(--cor-destaque);
+    border-radius: 20px;
     width: 90%;
     max-width: 500px;
-    text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    border: 3px solid var(--cor-destaque);
+    position: relative;
     animation: modalFadeIn 0.4s;
+    box-sizing: border-box;
+    text-align: center; /* Adicionado para centralizar o texto */
 }
 
 .titulo-final {
@@ -647,7 +662,7 @@ body {
 
 .botoes-final {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Botões em coluna para melhor visualização */
     gap: 15px;
     margin-top: 25px;
 }
@@ -664,7 +679,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    text-decoration: none;
+    text-decoration: none; /* Para o link do ranking */
 }
 
 .btn-final.destaque {
@@ -689,84 +704,110 @@ body {
     font-style: italic;
 }
 
-/* ===== Ranking ===== */
+/* ===== Estilos para o Novo Modal de Ranking ===== */
+.ranking-modal-conteudo {
+    max-width: 600px; /* Largura maior para o ranking */
+    max-height: 80vh; /* Altura máxima para o modal de ranking */
+    overflow-y: auto; /* Adiciona rolagem se o conteúdo exceder */
+}
+
+.ranking-modal-conteudo h2 {
+    margin-bottom: 30px;
+}
+
 .ranking-container {
     width: 100%;
-    max-height: 500px;
-    overflow-y: auto;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px; /* Ajuste de padding */
+    box-sizing: border-box;
 }
 
 .ranking-serie {
     margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.05); /* Fundo para cada série */
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .serie-title {
     color: var(--cor-destaque);
-    font-size: 20px;
+    font-size: 22px; /* Fonte um pouco maior */
     margin-bottom: 15px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #AB47BC;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #AB47BC; /* Borda mais grossa */
+    text-align: center;
 }
 
-.turmas-container {
+.turmas-container-modal { /* Container para as turmas dentro dos modais */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Ajustado para 120px */
     gap: 10px;
+    max-height: 40vh; /* Altura máxima para rolagem das turmas no modal de seleção */
+    overflow-y: auto;
+    padding-right: 5px; /* Espaço para a barra de rolagem */
 }
 
 .item-ranking {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Nome e pontos em coluna */
+    justify-content: center;
     align-items: center;
-    padding: 10px 15px;
+    padding: 12px 10px;
     background: rgba(107, 27, 154, 0.3);
     border-radius: 8px;
     transition: all 0.3s;
+    text-align: center;
+    cursor: pointer; /* Para os itens de seleção de turma */
 }
 
 .item-ranking:hover {
     background: rgba(107, 27, 154, 0.5);
     transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .item-ranking.turma-atual {
-    background: rgba(255, 215, 0, 0.2);
-    border-left: 4px solid var(--cor-destaque);
+    background: rgba(255, 215, 0, 0.2); /* Fundo mais claro para a turma logada */
+    border: 2px solid var(--cor-destaque); /* Borda de destaque */
+    transform: scale(1.02);
 }
 
 .turma-ranking {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px; /* Fonte maior */
+    margin-bottom: 5px;
 }
 
 .pontos-ranking {
     font-weight: bold;
     color: var(--cor-destaque);
+    font-size: 16px;
 }
 
-/* Barra de rolagem do ranking */
-.ranking-container::-webkit-scrollbar {
+/* Barra de rolagem do ranking e seleção de turma */
+.ranking-container::-webkit-scrollbar,
+.turmas-container-modal::-webkit-scrollbar {
     width: 8px;
 }
 
-.ranking-container::-webkit-scrollbar-track {
+.ranking-container::-webkit-scrollbar-track,
+.turmas-container-modal::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
-.ranking-container::-webkit-scrollbar-thumb {
+.ranking-container::-webkit-scrollbar-thumb,
+.turmas-container-modal::-webkit-scrollbar-thumb {
     background: #AB47BC;
     border-radius: 10px;
 }
 
-.ranking-container::-webkit-scrollbar-thumb:hover {
+.ranking-container::-webkit-scrollbar-thumb:hover,
+.turmas-container-modal::-webkit-scrollbar-thumb:hover {
     background: #8c66ff;
 }
 
+/* Animações */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -796,15 +837,19 @@ body {
     }
 
     .jogos-container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr; /* Duas colunas em tablets */
     }
 
     .modal-conteudo {
-        margin: 30% auto;
+        margin: 10% auto; /* Ajuste de margem para modais */
+    }
+    
+    .ranking-modal-conteudo {
+        max-width: 90%;
     }
 
     .opcoes-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Uma coluna para opções em telas menores */
     }
     
     #silhueta-container {
@@ -820,14 +865,17 @@ body {
         flex-direction: column;
     }
     
-    .turmas-container {
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    .turmas-container-modal {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .item-ranking {
+        font-size: 16px;
     }
 }
 
 @media (max-width: 480px) {
     .jogos-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Uma coluna em celulares */
     }
 
     .menu-navegacao {
@@ -841,7 +889,7 @@ body {
 
     .modal-conteudo {
         padding: 20px;
-        margin: 40% auto;
+        margin: 5% auto; /* Ajuste de margem para modais */
     }
     
     #silhueta-container {
@@ -858,7 +906,16 @@ body {
         font-size: 60px;
     }
     
-    .turmas-container {
-        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    .turmas-container-modal {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    .item-ranking {
+        font-size: 14px;
+    }
+    .turma-ranking {
+        font-size: 16px;
+    }
+    .pontos-ranking {
+        font-size: 14px;
     }
 }

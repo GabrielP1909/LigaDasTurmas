@@ -6,7 +6,7 @@
   <title>LigaDasTurmas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-  <!-- Pré-carregar imagens do jogo -->
+  <!-- Pré-carregar imagens do jogo para reduzir o lagging -->
   <link rel="preload" href="imagens/gato.png" as="image">
   <link rel="preload" href="imagens/girafa.png" as="image">
   <link rel="preload" href="imagens/maça.png" as="image">
@@ -27,9 +27,11 @@
       <ul class="menu-navegacao">
         <li><a href="#" aria-label="Início"><i class="fas fa-home"></i> Início</a></li>
         <li><a href="#jogos" aria-label="Jogos"><i class="fas fa-gamepad"></i> Jogos</a></li>
-        <li><a href="#ranking" aria-label="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
+        <li><a href="#" id="abrir-ranking-btn" aria-label="Ranking"><i class="fas fa-trophy"></i> Ranking</a></li>
         <li><a href="#sobre" aria-label="Sobre"><i class="fas fa-info-circle"></i> Sobre</a></li>
         <li><a href="#contato" aria-label="Contato"><i class="fas fa-envelope"></i> Contato</a></li>
+        <!-- NOVO: Botão para ligar/desligar o som -->
+        <li><a href="#" id="btn-toggle-som" aria-label="Ligar/Desligar Som"><i class="fas fa-volume-up"></i> Som: Ligado</a></li>
       </ul>
     </nav>
   </header>
@@ -71,45 +73,55 @@
         <div class="jogo-card" id="silhuetas">
           <h3>Jogo das Silhuetas</h3>
           <div class="icone-jogo"><i class="fas fa-user-secret"></i></div>
-          <p>1º ao 3º ano</p>
-          <button class="btn-jogar" data-jogo="silhuetas" aria-label="Jogar Jogo das Silhuetas">Jogar</button>
+          <p>1º ao 3º ano</p> <!-- ALTERADO -->
+          <button class="btn-jogar" data-jogo="silhuetas" data-faixa="fundamental-i" aria-label="Jogar Jogo das Silhuetas">Jogar</button>
         </div>
         <div class="jogo-card" id="quiz-facil">
           <h3>Quiz Fácil</h3>
           <div class="icone-jogo"><i class="fas fa-smile"></i></div>
-          <p>4º ao 6º ano</p>
-          <button class="btn-jogar" data-jogo="quiz-facil" aria-label="Jogar Quiz Fácil">Jogar</button>
+          <p>4º ao 6º ano</p> <!-- ALTERADO -->
+          <button class="btn-jogar" data-jogo="quiz-facil" data-faixa="fundamental-ii-parte1" aria-label="Jogar Quiz Fácil">Jogar</button>
         </div>
         <div class="jogo-card" id="quiz-medio">
           <h3>Quiz Médio</h3>
           <div class="icone-jogo"><i class="fas fa-meh"></i></div>
-          <p>7º ao 9º ano</p>
-          <button class="btn-jogar" data-jogo="quiz-medio" aria-label="Jogar Quiz Médio">Jogar</button>
+          <p>7º ao 9º ano</p> <!-- ALTERADO -->
+          <button class="btn-jogar" data-jogo="quiz-medio" data-faixa="fundamental-ii-parte2" aria-label="Jogar Quiz Médio">Jogar</button>
         </div>
         <div class="jogo-card" id="quiz-dificil">
           <h3>Quiz Difícil</h3>
           <div class="icone-jogo"><i class="fas fa-flushed"></i></div>
-          <p>Ensino Médio</p>
-          <button class="btn-jogar" data-jogo="quiz-dificil" aria-label="Jogar Quiz Difícil">Jogar</button>
+          <p>Ensino Médio</p> <!-- ALTERADO -->
+          <button class="btn-jogar" data-jogo="quiz-dificil" data-faixa="ensino-medio" aria-label="Jogar Quiz Difícil">Jogar</button>
         </div>
       </div>
     </section>
 
-    <section class="caixa-texto" id="ranking">
-      <h2><i class="fas fa-trophy"></i> Ranking das Turmas</h2>
-      <div id="ranking-geral" class="ranking-container"></div>
-    </section>
+    <!-- A seção de ranking principal foi removida daqui, pois agora é um modal -->
   </main>
 
-  <!-- Modal de Login -->
+  <!-- Modal de Seleção de Turma -->
+  <div id="modal-selecao-turma" class="modal">
+    <div class="modal-conteudo">
+      <span class="fechar-modal" aria-label="Fechar modal">&times;</span>
+      <h2><i class="fas fa-users"></i> Selecione sua Turma</h2>
+      <p id="instrucao-selecao-turma">Escolha a turma para jogar o <span id="nome-jogo-selecao"></span>:</p>
+      <div id="turmas-container-selecao" class="turmas-container-modal">
+        <!-- Turmas serão carregadas aqui via JS -->
+      </div>
+      <p id="mensagem-erro-selecao" class="mensagem-erro"></p>
+    </div>
+  </div>
+
+  <!-- Modal de Login (para senha da turma) -->
   <div id="modal-login" class="modal">
     <div class="modal-conteudo">
       <span class="fechar-modal" aria-label="Fechar modal">&times;</span>
       <h2><i class="fas fa-lock"></i> Acesso Restrito</h2>
-      <p id="instrucao-jogo">Digite a senha da sua turma para jogar:</p>
+      <p id="instrucao-senha">Digite a senha da turma <span id="turma-selecionada-nome"></span>:</p>
       <input type="password" id="senha-jogo" placeholder="Digite a senha da turma" aria-label="Senha do jogo">
       <button id="btn-confirmar" aria-label="Confirmar senha">Confirmar</button>
-      <p id="mensagem-erro"></p>
+      <p id="mensagem-erro-senha" class="mensagem-erro"></p>
     </div>
   </div>
 
@@ -143,12 +155,23 @@
     </div>
   </div>
 
+  <!-- Novo Modal de Ranking -->
+  <div id="modal-ranking" class="modal">
+    <div class="modal-conteudo ranking-modal-conteudo">
+      <span class="fechar-modal" aria-label="Fechar modal">&times;</span>
+      <h2><i class="fas fa-trophy"></i> Ranking das Turmas</h2>
+      <div id="ranking-geral-modal" class="ranking-container">
+        <!-- O ranking será carregado aqui via JS -->
+      </div>
+    </div>
+  </div>
+
   <!-- Elemento de áudio para efeitos sonoros -->
   <audio id="som-acerto" preload="auto">
-    <source src="sons/acerto.mp3" type="audio/mpeg">
+    <source src="audios/correta.mp3" type="audio/mpeg">
   </audio>
   <audio id="som-erro" preload="auto">
-    <source src="sons/erro.mp3" type="audio/mpeg">
+    <source src="audios/incorreta.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Firebase SDK -->
