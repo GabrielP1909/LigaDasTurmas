@@ -17,7 +17,7 @@ body {
     padding: 0;
     width: 100vw;
     min-height: 100vh;
-    background: linear-gradient(to right, var(--cor-primaria), var(--cor-primaria), #5b1485, #AB47BC);
+    background: linear-gradient(to right, var(--cor-primaria), var(--cor-primaria), #5b1485, #851b97);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
@@ -30,6 +30,17 @@ body {
 body.modal-aberto {
     overflow: hidden; /* Impede rolagem do fundo */
 }
+
+/* Estilo específico para o body do quiz para centralizar o conteúdo */
+body.quiz-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px; /* Adiciona um padding para não colar nas bordas */
+    box-sizing: border-box;
+}
+
 
 /* ===== Cabeçalho ===== */
 .cabecalho {
@@ -584,6 +595,80 @@ body.modal-aberto {
     margin: 20px 0;
 }
 
+/* ===== Estilos para o Quiz (reutilizando classes existentes) ===== */
+.quiz-container {
+    /* Reutiliza modal-conteudo para o estilo base */
+    max-width: 600px; /* Pode ser um pouco maior que o modal de login */
+    padding: 30px;
+}
+
+.titulo-quiz {
+    color: var(--cor-destaque);
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 28px; /* Ajuste para o tamanho do h2 dos modais */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pergunta-quiz {
+    color: var(--cor-texto);
+    font-size: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* As opções do quiz usarão .opcoes-grid e .opcao-btn já definidos */
+
+.feedback-quiz {
+    color: var(--cor-destaque); /* Cor de destaque para feedback */
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    min-height: 25px; /* Garante espaço mesmo sem texto */
+}
+
+.btn-quiz-next {
+    width: 100%;
+    padding: 12px;
+    background: var(--cor-destaque);
+    color: var(--cor-primaria);
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.btn-quiz-next:hover {
+    background: #ffea00;
+    transform: translateY(-2px);
+}
+
+/* Botão de fechar específico para o quiz */
+.fechar-quiz {
+    color: var(--cor-destaque);
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.fechar-quiz:hover {
+    color: var(--cor-texto);
+}
+
+
 /* ===== Tela Final do Jogo ===== */
 .modal-final-container {
     position: fixed;
@@ -871,6 +956,10 @@ body.modal-aberto {
     .item-ranking {
         font-size: 16px;
     }
+
+    .quiz-container {
+        max-width: 90%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -917,5 +1006,12 @@ body.modal-aberto {
     }
     .pontos-ranking {
         font-size: 14px;
+    }
+
+    .quiz-container {
+        padding: 20px;
+    }
+    .pergunta-quiz {
+        font-size: 18px;
     }
 }

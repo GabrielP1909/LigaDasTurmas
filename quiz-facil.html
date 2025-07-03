@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Nível Fácil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="quiz-body">
+  <div class="quiz-container modal-conteudo">
+    <span class="fechar-modal fechar-quiz" aria-label="Fechar quiz">&times;</span>
+    <h1 class="titulo-quiz"><i class="fas fa-smile"></i> Quiz – Nível Fácil</h1>
+    <div id="question-container" class="quiz-area">
+      <p id="question" class="pergunta-quiz">Carregando pergunta...</p>
+      <div id="options" class="opcoes-grid"></div>
+    </div>
+    <p id="feedback" class="feedback-quiz"></p>
+    <button id="next-btn" class="btn-quiz-next" style="display: none;">Próxima</button>
+  </div>
+
+  <!-- Elementos de áudio para efeitos sonoros (se necessário no quiz) -->
+  <audio id="som-acerto" preload="auto">
+    <source src="audios/correta.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="som-erro" preload="auto">
+    <source src="audios/incorreta.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Firebase SDK (se o quiz precisar interagir com o ranking) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtn9E98d5hkwrQKERO4Wo0WF8sI8jhWVg",
+      authDomain: "projeto-liga.firebaseapp.com",
+      projectId: "projeto-liga",
+      storageBucket: "projeto-liga.appspot.com",
+      messagingSenderId: "268280362386",
+      appId: "1:268280362386:web:8b6c40cea41140b5b4fd4b",
+      measurementId: "G-3VD06W8M78",
+      databaseURL: "https://projeto-liga-default-rtdb.firebaseio.com/"
+    };
+    
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+  </script>
+  
+  <script src="quiz-facil.js"></script>
+</body>
+</html>

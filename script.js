@@ -178,7 +178,23 @@ const perguntasSilhuetas = [
         silhueta: 'imagens/estrela.png',
         opcoes: ['Coração', 'Estrela', 'Lua', 'Sol'],
         resposta: 1 
+    },
+     {
+        silhueta: 'imagens/frozen.png',
+        opcoes: ['AnnaBelle', 'Olaf', 'Frozen', 'Pinóquio'],
+        resposta: 2
+    },
+     {
+        silhueta: 'imagens/roblox.png',
+        opcoes: ['Roblox', 'Brawl stars', 'Pokemom', 'Pou'],
+        resposta: 0
+    },
+      {
+        silhueta: 'imagens/freefire.png',
+        opcoes: ['Fortnite', 'Brawl stars', 'Lego', 'Free Fire'],
+        resposta: 3
     }
+
 ];
 
 // --- Funções de Abertura e Fechamento de Modais ---
@@ -336,7 +352,12 @@ btnConfirmar.addEventListener('click', function() {
         // Inicia o jogo selecionado
         if (jogoSelecionado === 'silhuetas') {
             iniciarJogoSilhuetas();
-        } else {
+        } else if (jogoSelecionado === 'quiz-facil') {
+            // Redireciona para a página do quiz fácil
+            localStorage.setItem('turmaAtual', turmaAtual); // Salva a turma para o quiz
+            window.location.href = 'quiz-facil.html';
+        }
+        else {
             alert(`Senha correta! Redirecionando para o ${detalhesJogos[jogoSelecionado].titulo}...`);
             // Aqui você chamaria a função para iniciar o quiz específico
             // Por exemplo: iniciarQuiz(jogoSelecionado);
