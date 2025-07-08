@@ -22,7 +22,7 @@ let turmaAtualQuiz = null; // Para armazenar a turma logada
 const questions = [
   {
     question: "Qual é a capital do Brasil?",
-    options: ["A) Rio de Janeiro", "B) Brasília", "C) São Paulo", "D) Salvador"],
+    options: ["A) Rio de Janeiro", "B) Brasília", "C) 8", "D) 9"],
     answer: 1
   },
   {

@@ -597,23 +597,30 @@ function atualizarRankingModal() {
             const turmasDiv = document.createElement('div');
             turmasDiv.className = 'turmas-container-modal'; // Usa o container de turmas para modais
             
+            // Coleta as turmas da série com suas pontuações e as ordena
+            const turmasComPontuacao = turmasSerie.map(turma => ({
+                nome: turma,
+                pontos: data[turma] || 0
+            }));
+
+            // Ordena as turmas por pontuação (do maior para o menor)
+            turmasComPontuacao.sort((a, b) => b.pontos - a.pontos);
+
             // Adiciona as turmas da série ao container
-            turmasSerie.forEach(turma => {
-                const pontos = data[turma] || 0; 
-                
+            turmasComPontuacao.forEach(turmaData => { // Alterado para usar turmaData
                 const itemRanking = document.createElement('div');
                 itemRanking.className = 'item-ranking';
-                if (turma === turmaAtual) {
+                if (turmaData.nome === turmaAtual) { // Alterado para turmaData.nome
                     itemRanking.classList.add('turma-atual');
                 }
                 
                 const turmaElement = document.createElement('div');
                 turmaElement.className = 'turma-ranking';
-                turmaElement.textContent = turma;
+                turmaElement.textContent = turmaData.nome; // Alterado para turmaData.nome
                 
                 const pontosElement = document.createElement('div');
                 pontosElement.className = 'pontos-ranking';
-                pontosElement.textContent = `${pontos} pts`;
+                pontosElement.textContent = `${turmaData.pontos} pts`; // Alterado para turmaData.pontos
                 
                 itemRanking.appendChild(turmaElement);
                 itemRanking.appendChild(pontosElement);
