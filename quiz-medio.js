@@ -1,5 +1,5 @@
-// Constantes do jogo (podem ser as mesmas do script.js principal ou específicas)
-const PONTOS_POR_ACERTO_QUIZ = 50; // Pontuação para o quiz fácil
+// Constantes do jogo
+const PONTOS_POR_ACERTO_QUIZ_MEDIO = 75; // Pontuação para o quiz médio
 
 // Elementos do quiz
 const questionEl = document.getElementById("question");
@@ -8,67 +8,67 @@ const feedbackEl = document.getElementById("feedback");
 const nextBtn = document.getElementById("next-btn");
 const fecharQuizBtn = document.querySelector('.fechar-quiz'); // Botão de fechar o quiz
 
-// Elementos de áudio (se o quiz tiver seus próprios sons ou usar os globais)
+// Elementos de áudio
 const somAcerto = document.getElementById('som-acerto');
 const somErro = document.getElementById('som-erro');
 
 // Variáveis de estado do quiz
-let currentQuestion = 0;
+let currentQuestionIndex = 0; // Renomeado para evitar conflito com 'currentQuestion' no loop
 let score = 0;
 let correctAnswersCount = 0; // Nova variável para contar acertos
 let turmaAtualQuiz = null; // Para armazenar a turma logada
 
-// Perguntas do Quiz Fácil
+// Perguntas do Quiz Médio
 const questions = [
   {
-    question: "Qual é a capital do Brasil?",
-    options: ["A) Rio de Janeiro", "B) Brasília", "C) São Paulo", "D) Salvador"],
+    question: "Qual o nome do processo pelo qual as plantas produzem seu próprio alimento?",
+    options: ["A) Respiração", "B) Fotossíntese", "C) Transpiração", "D) Polinização"],
     answer: 1
   },
   {
-    question: "Quanto é 5 + 3?",
+    question: "Quem escreveu a obra 'Dom Quixote'?",
+    options: ["A) William Shakespeare", "B) Miguel de Cervantes", "C) Gabriel García Márquez", "D) Victor Hugo"],
+    answer: 1
+  },
+  {
+    question: "Qual é o elemento químico mais abundante na crosta terrestre?",
+    options: ["A) Ferro", "B) Alumínio", "C) Oxigênio", "D) Silício"],
+    answer: 2
+  },
+  {
+    question: "Em que ano o homem pisou na Lua pela primeira vez?",
+    options: ["A) 1965", "B) 1969", "C) 1971", "D) 1975"],
+    answer: 1
+  },
+  {
+    question: "Qual o maior oceano do mundo?",
+    options: ["A) Atlântico", "B) Índico", "C) Ártico", "D) Pacífico"],
+    answer: 3
+  },
+  {
+    question: "Qual a capital da Austrália?",
+    options: ["A) Sydney", "B) Melbourne", "C) Canberra", "D) Perth"],
+    answer: 2
+  },
+  {
+    question: "Quantos lados tem um heptágono?",
     options: ["A) 6", "B) 7", "C) 8", "D) 9"],
-    answer: 2
-  },
-  {
-    question: "Qual desses animais é um mamífero?",
-    options: ["A) Tubarão", "B) Jacaré", "C) Baleia", "D) Galinha"],
-    answer: 2
-  },
-  {
-    question: "Quantas patas possui uma aranha?",
-    options: ["A) 6", "B) 8", "C) 4", "D) 10"],
     answer: 1
   },
   {
-    question: "Quanto é 3 x 4?",
-    options: ["A) 12", "B) 9", "C) 7", "D) 16"],
-    answer: 0
-  },
-  {
-    question: "Como chamamos alguém que dá aula numa escola?",
-    options: ["A) Doutor", "B) Diretor", "C) Professor", "D) Estudante"],
+    question: "Qual o nome do cientista que formulou a Teoria da Relatividade?",
+    options: ["A) Isaac Newton", "B) Stephen Hawking", "C) Albert Einstein", "D) Galileu Galilei"],
     answer: 2
   },
   {
-    question: "Qual nome do acento da palavra 'café'?",
-    options: ["A) Acento agudo", "B) Acento grave", "C) Acento circunflexo", "D) Não tem acento"],
-    answer: 0
-  },
-  {
-    question: "Qual é o maior planeta do sistema solar?",
-    options: ["A) Terra", "B) Marte", "C) Júpiter", "D) Saturno"],
-    answer: 2
-  },
-  {
-    question: "Qual desses animais bota ovos?",
-    options: ["A) Gato", "B) Cachorro", "C) Cobra", "D) Cavalo"],
-    answer: 2
-  },
-  {
-    question: "O que usamos para respirar?",
-    options: ["A) Olhos", "B) Pulmões", "C) Estômago", "D) Ouvidos"],
+    question: "Qual o metal líquido à temperatura ambiente?",
+    options: ["A) Ferro", "B) Mercúrio", "C) Chumbo", "D) Ouro"],
     answer: 1
+  },
+  {
+    question: "Qual o país de origem do sushi?",
+    options: ["A) China", "B) Coreia do Sul", "C) Japão", "D) Tailândia"],
+    answer: 2
   }
 ];
 
@@ -81,7 +81,7 @@ function isSomAtivado() {
 function showQuestion() {
   feedbackEl.textContent = "";
   nextBtn.style.display = "none";
-  const q = questions[currentQuestion];
+  const q = questions[currentQuestionIndex];
   questionEl.textContent = q.question;
   optionsEl.innerHTML = "";
   q.options.forEach((opt, index) => {
@@ -94,7 +94,7 @@ function showQuestion() {
 }
 
 function checkAnswer(index) {
-  const correct = questions[currentQuestion].answer;
+  const correct = questions[currentQuestionIndex].answer;
   const buttons = document.querySelectorAll(".opcao-btn");
 
   buttons.forEach(btn => {
@@ -105,7 +105,7 @@ function checkAnswer(index) {
   if (index === correct) {
     feedbackEl.textContent = " ✅ Resposta correta!";
     buttons[index].classList.add('correta'); // Adiciona classe para feedback visual
-    score += PONTOS_POR_ACERTO_QUIZ;
+    score += PONTOS_POR_ACERTO_QUIZ_MEDIO;
     correctAnswersCount++; // Incrementa o contador de acertos
     if (isSomAtivado() && somAcerto) {
         somAcerto.currentTime = 0;
@@ -124,8 +124,8 @@ function checkAnswer(index) {
 }
 
 nextBtn.onclick = () => {
-  currentQuestion++;
-  if (currentQuestion < questions.length) {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
     showQuestion();
   } else {
     finalizeQuiz();
@@ -150,7 +150,7 @@ function finalizeQuiz() {
         });
     }
 
-    // Exibe o modal final do jogo (reutilizando a estrutura do modal final do jogo de silhuetas)
+    // Exibe o modal final do jogo
     const modalFinalQuiz = document.createElement('div');
     modalFinalQuiz.className = 'modal-final-container';
     modalFinalQuiz.innerHTML = `
@@ -188,7 +188,7 @@ function finalizeQuiz() {
     document.getElementById('btn-jogar-novamente-quiz').addEventListener('click', () => {
         modalFinalQuiz.remove();
         document.body.classList.remove('modal-aberto');
-        currentQuestion = 0;
+        currentQuestionIndex = 0;
         score = 0;
         correctAnswersCount = 0; // Resetar acertos
         showQuestion();

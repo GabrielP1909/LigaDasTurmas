@@ -77,7 +77,7 @@ const TURMAS = {
     '4º': 'turma4681',
     '5º': 'turma5681',
     '6º': 'turma6681',
-    '7º': 'turma7123',
+    '7º': 'turma7681',
     '8º': 'turma8681',
     '9º': 'turma9681',
     '1º 101': 'turma101681', 
@@ -356,11 +356,18 @@ btnConfirmar.addEventListener('click', function() {
             // Redireciona para a página do quiz fácil
             localStorage.setItem('turmaAtual', turmaAtual); // Salva a turma para o quiz
             window.location.href = 'quiz-facil.html';
+        } else if (jogoSelecionado === 'quiz-medio') { // NOVO: Lógica para Quiz Médio
+            localStorage.setItem('turmaAtual', turmaAtual);
+            window.location.href = 'quiz-medio.html';
+        } else if (jogoSelecionado === 'quiz-dificil') { // NOVO: Lógica para Quiz Difícil
+            localStorage.setItem('turmaAtual', turmaAtual);
+            // Você precisará criar quiz-dificil.html e quiz-dificil.js
+            window.location.href = 'quiz-dificil.html'; 
         }
         else {
             alert(`Senha correta! Redirecionando para o ${detalhesJogos[jogoSelecionado].titulo}...`);
-            // Aqui você chamaria a função para iniciar o quiz específico
-            // Por exemplo: iniciarQuiz(jogoSelecionado);
+            // Se houver outros jogos que não sejam quizzes ou silhuetas, adicione a lógica aqui.
+            // Por exemplo: iniciarOutroJogo(jogoSelecionado);
         }
     } else {
         mensagemErroSenha.textContent = 'Senha incorreta! Tente novamente.';
