@@ -1,5 +1,5 @@
 // Constantes do jogo (podem ser as mesmas do script.js principal ou específicas)
-const PONTOS_POR_ACERTO_QUIZ = 50; // Pontuação para o quiz fácil
+const PONTOS_POR_ACERTO_QUIZ = 50; // Pontuação padronizada para 50 pontos
 
 // Elementos do quiz
 const questionEl = document.getElementById("question");
@@ -18,7 +18,7 @@ let score = 0;
 let correctAnswersCount = 0; // Nova variável para contar acertos
 let turmaAtualQuiz = null; // Para armazenar a turma logada
 
-// Perguntas do Quiz Fácil
+// Perguntas do Quiz Fácil (Máximo de 10 questões)
 const questions = [
   {
     question: "Qual é a capital do Brasil?",
@@ -169,6 +169,9 @@ function finalizeQuiz() {
                 <p class="mensagem-ranking">Verifique o ranking e veja onde sua turma está!</p>
                 
                 <div class="botoes-final">
+                    <button id="btn-ver-ranking-final-quiz" class="btn-final">
+                        <i class="fas fa-trophy"></i> Ver Ranking
+                    </button>
                     <button id="btn-voltar-inicio" class="btn-final">
                         <i class="fas fa-home"></i> Voltar ao Início
                     </button>
@@ -196,6 +199,13 @@ function finalizeQuiz() {
 
     document.getElementById('btn-voltar-inicio').addEventListener('click', () => {
         window.location.href = 'index.html'; // Volta para a página principal
+    });
+
+    // NOVO: Event listener para o botão "Ver Ranking"
+    document.getElementById('btn-ver-ranking-final-quiz').addEventListener('click', () => {
+        // Redireciona para a página principal e abre o modal de ranking
+        localStorage.setItem('abrirRankingAoCarregar', 'true'); // Sinaliza para abrir o ranking
+        window.location.href = 'index.html';
     });
 }
 

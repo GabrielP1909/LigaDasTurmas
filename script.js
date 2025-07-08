@@ -1,7 +1,7 @@
 // Constantes do jogo
 const TEMPO_CARREGAMENTO = 150; // Tempo para carregar a silhueta
 const TEMPO_ESPERA_RESPOSTA = 1500; // Tempo para exibir feedback da resposta antes de ir para a próxima pergunta
-const PONTOS_POR_ACERTO = 50;
+const PONTOS_POR_ACERTO = 50; // Pontuação padronizada para 50 pontos
 
 // Variáveis dos modais
 const modalLogin = document.getElementById('modal-login');
@@ -118,7 +118,7 @@ const detalhesJogos = {
         descricao: 'Perguntas mais desafiadoras para testar seu conhecimento!',
         instrucoes: [
             'Perguntas com nível médio de dificuldade',
-            'Cada acerto vale 75 pontos'
+            'Cada acerto vale 50 pontos' // Pontuação padronizada
         ],
         dicas: [
             'Elimine as alternativas que parecem incorretas'
@@ -129,7 +129,7 @@ const detalhesJogos = {
         descricao: 'Perguntas complexas que exigem raciocínio avançado!',
         instrucoes: [
             'Perguntas de alto nível de dificuldade',
-            'Cada acerto vale 100 pontos'
+            'Cada acerto vale 50 pontos' // Pontuação padronizada
         ],
         dicas: [
             'Pense cuidadosamente antes de responder'
@@ -137,7 +137,7 @@ const detalhesJogos = {
     }
 };
 
-// Perguntas do jogo das silhuetas (8 questões)
+// Perguntas do jogo das silhuetas (Máximo de 10 questões)
 const perguntasSilhuetas = [
     {
         silhueta: 'imagens/gato.png',
@@ -179,22 +179,17 @@ const perguntasSilhuetas = [
         opcoes: ['Coração', 'Estrela', 'Lua', 'Sol'],
         resposta: 1 
     },
-     {
+    {
         silhueta: 'imagens/frozen.png',
         opcoes: ['AnnaBelle', 'Olaf', 'Frozen', 'Pinóquio'],
         resposta: 2
     },
-     {
+    {
         silhueta: 'imagens/roblox.png',
         opcoes: ['Roblox', 'Brawl stars', 'Pokemom', 'Pou'],
         resposta: 0
-    },
-      {
-        silhueta: 'imagens/freefire.png',
-        opcoes: ['Fortnite', 'Brawl stars', 'Lego', 'Free Fire'],
-        resposta: 3
     }
-
+    // A questão 'freefire.png' foi removida para manter o máximo de 10 questões.
 ];
 
 // --- Funções de Abertura e Fechamento de Modais ---
@@ -694,4 +689,12 @@ document.addEventListener('DOMContentLoaded', function() {
             rankingRef.update(updates); 
         }
     });
+
+    // NOVO: Verifica se deve abrir o ranking ao carregar a página
+    const abrirRanking = localStorage.getItem('abrirRankingAoCarregar');
+    if (abrirRanking === 'true') {
+        localStorage.removeItem('abrirRankingAoCarregar'); // Remove a flag
+        abrirModal(modalRanking);
+        atualizarRankingModal();
+    }
 });
