@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Geo-Quiz</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Estilos específicos do Geo-Quiz (semelhante ao que você já tinha) -->
+    <style>
+        /* Adicionando o corpo para ter a classe e o fundo dos outros quizzes */
+        .quiz-body {
+            background-color: #f0f8ff; /* Fundo azul claro, igual aos outros quizzes */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        #map {
+            height: 350px;
+            width: 100%;
+            border-radius: 0.5rem;
+            background: #aadaff;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ccc;
+        }
+
+        #options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        
+        /* Renomeando .opcao para .opcao-btn para ser consistente com outros jogos se necessário */
+        .opcao-btn {
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.5rem;
+            background: #fff;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .opcao-btn.correta {
+            background: #28a745 !important;
+            border-color: #28a745 !important;
+            color: white;
+        }
+
+        .opcao-btn.incorreta {
+            background: #dc3545 !important;
+            border-color: #dc3545 !important;
+            color: white;
+        }
+
+        .opcao-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.85;
+        }
+
+        #feedback {
+            text-align: center;
+            font-weight: bold;
+            min-height: 1.5em;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .status-rodada {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4a5a6a;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            min-height: 1.5em; /* Garante que não pule layout */
+        }
+    </style>
+</head>
+
+<body class="quiz-body">
+  <div class="quiz-container modal-conteudo">
+    <span class="fechar-modal fechar-quiz" aria-label="Fechar quiz">×</span>
+    <h1 class="titulo-quiz"><i class="fas fa-globe-americas"></i> Geo-Quiz</h1>
+    
+    <p id="rodada-status" class="status-rodada"></p>
+
+    <div id="game-area">
+        <div id="map"></div>
+        <div id="feedback"></div>
+        <div id="options"></div>
+    </div>
+  </div>
+
+  <!-- Elementos de áudio para efeitos sonoros (padrão) -->
+  <audio id="som-acerto" preload="auto">
+    <source src="audios/correta.mp3" type="audio/mpeg">
+  </audio>
+  <audio id="som-erro" preload="auto">
+    <source src="audios/incorreta.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Firebase SDK (padrão) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBtn9E98d5hkwrQKERO4Wo0WF8sI8jhWVg",
+      authDomain: "projeto-liga.firebaseapp.com",
+      projectId: "projeto-liga",
+      storageBucket: "projeto-liga.appspot.com",
+      messagingSenderId: "268280362386",
+      appId: "1:268280362386:web:8b6c40cea41140b5b4fd4b",
+      measurementId: "G-3VD06W8M78",
+      databaseURL: "https://projeto-liga-default-rtdb.firebaseio.com/"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+  </script>
+  
+  <script src="geo-quiz.js"></script>
+</body>
+
+</html>

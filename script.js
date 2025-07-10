@@ -357,7 +357,7 @@ btnConfirmar.addEventListener('click', function() {
         } else if (jogoSelecionado === 'quiz-dificil') { // NOVO: Lógica para Quiz Difícil
             localStorage.setItem('turmaAtual', turmaAtual);
             // Você precisará criar quiz-dificil.html e quiz-dificil.js
-            window.location.href = 'quiz-dificil.html'; 
+            window.location.href = 'geo-quiz.html'; 
         }
         else {
             alert(`Senha correta! Redirecionando para o ${detalhesJogos[jogoSelecionado].titulo}...`);
