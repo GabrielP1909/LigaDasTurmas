@@ -39,6 +39,7 @@ body.quiz-body {
     min-height: 100vh;
     padding: 20px; /* Adiciona um padding para não colar nas bordas */
     box-sizing: border-box;
+    background: linear-gradient(to right, var(--cor-primaria), var(--cor-primaria), #5b1485);
 }
 
 
@@ -51,12 +52,13 @@ body.quiz-body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
+    /* REMOVIDO: position: fixed; */
+    /* REMOVIDO: top: 0; */
+    /* REMOVIDO: left: 0; */
+    /* REMOVIDO: z-index: 100; */
     box-sizing: border-box;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    min-height: 60px; 
 }
 
 .logo-container {
@@ -122,9 +124,10 @@ body.quiz-body {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    padding: 120px 20px 40px 20px;
+    padding: 20px; 
     box-sizing: border-box;
     gap: 30px;
+    /* REMOVIDO: margin-top, pois o cabeçalho não é mais fixo */
 }
 
 /* ===== Caixa de Texto - Sobre ===== */
@@ -325,7 +328,8 @@ body.quiz-body {
     border: 2px solid var(--cor-destaque);
     border-radius: 20px;
     width: 90%;
-    max-width: 400px;
+    /* MODIFICADO: Aumentado o max-width para melhor visualização */
+    max-width: 600px; 
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     position: relative;
     animation: modalFadeIn 0.3s;
@@ -598,7 +602,6 @@ body.quiz-body {
 /* ===== Estilos para o Quiz (reutilizando classes existentes) ===== */
 .quiz-container {
     /* Reutiliza modal-conteudo para o estilo base */
-    max-width: 600px; /* Pode ser um pouco maior que o modal de login */
     padding: 30px;
 }
 
@@ -690,7 +693,8 @@ body.quiz-body {
     border: 3px solid var(--cor-destaque);
     border-radius: 20px;
     width: 90%;
-    max-width: 500px;
+    /* MODIFICADO: Aumentado o max-width para melhor visualização */
+    max-width: 600px; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     position: relative;
     animation: modalFadeIn 0.4s;
@@ -917,6 +921,11 @@ body.quiz-body {
         justify-content: center;
     }
 
+    /* REMOVIDO: Ajuste do margin-top da secao-principal para telas médias */
+    /* .secao-principal {
+        margin-top: 180px; 
+    } */
+
     .sobre-conteudo {
         flex-direction: column;
     }
@@ -956,24 +965,34 @@ body.quiz-body {
     .item-ranking {
         font-size: 16px;
     }
-
-    .quiz-container {
-        max-width: 90%;
-    }
 }
 
 @media (max-width: 480px) {
+    .cabecalho {
+        padding: 10px; /* Reduzir padding em telas muito pequenas */
+    }
+    .logo {
+        font-size: 24px;
+    }
+    .slogan {
+        font-size: 12px;
+    }
+    .menu-navegacao {
+        gap: 8px;
+        margin-top: 10px;
+    }
+    .menu-navegacao a {
+        font-size: 12px;
+        padding: 5px 7px;
+    }
+
+    /* REMOVIDO: Ajuste do margin-top da secao-principal para telas pequenas */
+    /* .secao-principal {
+        margin-top: 220px; 
+    } */
+
     .jogos-container {
         grid-template-columns: 1fr; /* Uma coluna em celulares */
-    }
-
-    .menu-navegacao {
-        gap: 10px;
-    }
-
-    .menu-navegacao a {
-        font-size: 14px;
-        padding: 6px 8px;
     }
 
     .modal-conteudo {
