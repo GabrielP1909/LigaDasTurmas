@@ -1,3 +1,11 @@
+html {
+    overflow-x: hidden;
+}
+/* Adicionar box-sizing globalmente para maior consistência */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   --cor-primaria: #3B0D55;
   --cor-secundaria: #6a1b9a;
@@ -15,10 +23,11 @@
 body {
     margin: 0;
     padding: 0;
-    width: 100vw;
+    width: 100%; /* alterado para evitar overflow horizontal */
     min-height: 100vh;
     background: linear-gradient(to right, var(--cor-primaria), var(--cor-primaria), #5b1485);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* ALTERADO: Adicionado 'Open Sans' como primeira opção de fonte */
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +65,6 @@ body.quiz-body {
     /* REMOVIDO: top: 0; */
     /* REMOVIDO: left: 0; */
     /* REMOVIDO: z-index: 100; */
-    box-sizing: border-box;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     min-height: 60px; 
 }
@@ -98,7 +106,8 @@ body.quiz-body {
 
 .menu-navegacao a {
     text-decoration: none;
-    font-family: Arial, sans-serif;
+    /* ALTERADO: Adicionado 'Open Sans' como primeira opção de fonte */
+    font-family: 'Open Sans', Arial, sans-serif;
     color: var(--cor-texto-secundario);
     font-size: 16px;
     padding: 8px 12px;
@@ -138,7 +147,6 @@ body.quiz-body {
     border-radius: 20px;
     max-width: 1000px;
     width: 100%;
-    box-sizing: border-box;
     box-shadow: var(--sombra-padrao);
     backdrop-filter: blur(6px);
     transition: border-color 0.5s ease;
@@ -229,7 +237,6 @@ body.quiz-body {
     border-radius: 20px;
     max-width: 1000px;
     width: 100%;
-    box-sizing: border-box;
     box-shadow: var(--sombra-padrao);
     backdrop-filter: blur(6px);
     transition: border-color 0.5s ease;
@@ -308,6 +315,7 @@ body.quiz-body {
 
 /* ===== Modais Gerais ===== */
 .modal {
+    overflow-x: hidden;
     display: none; /* ALTERADO: Oculta o modal por padrão */
     position: fixed;
     z-index: 1000;
@@ -333,7 +341,6 @@ body.quiz-body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     position: relative;
     animation: modalFadeIn 0.3s;
-    box-sizing: border-box; /* Garante que padding não aumente a largura total */
 }
 
 @keyframes modalFadeIn {
@@ -368,7 +375,6 @@ body.quiz-body {
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.9);
     font-size: 16px;
-    box-sizing: border-box;
     transition: all 0.3s;
 }
 
@@ -497,7 +503,6 @@ body.quiz-body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     position: relative;
     animation: modalFadeIn 0.4s;
-    box-sizing: border-box;
 }
 
 .jogo-area {
@@ -698,7 +703,6 @@ body.quiz-body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     position: relative;
     animation: modalFadeIn 0.4s;
-    box-sizing: border-box;
     text-align: center; /* Adicionado para centralizar o texto */
 }
 
@@ -795,9 +799,18 @@ body.quiz-body {
 
 /* ===== Estilos para o Novo Modal de Ranking ===== */
 .ranking-modal-conteudo {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
     max-width: 600px; /* Largura maior para o ranking */
     max-height: 80vh; /* Altura máxima para o modal de ranking */
     overflow-y: auto; /* Adiciona rolagem se o conteúdo exceder */
+    overflow-x: hidden; /* Garante que não haja scroll horizontal */
+    padding-right: 25px; /* Aumentado para garantir espaço para a barra de rolagem */
+    /* O padding-left e padding-top/bottom podem ser mantidos ou ajustados conforme necessário */
+    padding-left: 30px; /* Mantém o padding original da esquerda */
+    padding-top: 30px; /* Mantém o padding original do topo */
+    padding-bottom: 30px; /* Mantém o padding original da base */
 }
 
 .ranking-modal-conteudo h2 {
@@ -806,8 +819,8 @@ body.quiz-body {
 
 .ranking-container {
     width: 100%;
-    padding: 10px; /* Ajuste de padding */
-    box-sizing: border-box;
+    padding: 0; /* Removido padding aqui para evitar duplicação com o padding do modal-conteudo */
+    /* REMOVIDO: overflow-y: auto; - O scroll deve ser no .ranking-modal-conteudo */
 }
 
 .ranking-serie {
@@ -833,7 +846,8 @@ body.quiz-body {
     gap: 10px;
     max-height: 40vh; /* Altura máxima para rolagem das turmas no modal de seleção */
     overflow-y: auto;
-    padding-right: 5px; /* Espaço para a barra de rolagem */
+    overflow-x: hidden; /* Garante que não haja scroll horizontal interno */
+    padding-right: 5px; /* Espaço para a barra de rolagem interna */
 }
 
 .item-ranking {
@@ -875,24 +889,28 @@ body.quiz-body {
 
 /* Barra de rolagem do ranking e seleção de turma */
 .ranking-container::-webkit-scrollbar,
-.turmas-container-modal::-webkit-scrollbar {
+.turmas-container-modal::-webkit-scrollbar,
+.ranking-modal-conteudo::-webkit-scrollbar {
     width: 8px;
 }
 
 .ranking-container::-webkit-scrollbar-track,
-.turmas-container-modal::-webkit-scrollbar-track {
+.turmas-container-modal::-webkit-scrollbar-track,
+.ranking-modal-conteudo::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
 .ranking-container::-webkit-scrollbar-thumb,
-.turmas-container-modal::-webkit-scrollbar-thumb {
+.turmas-container-modal::-webkit-scrollbar-thumb,
+.ranking-modal-conteudo::-webkit-scrollbar-thumb {
     background: #AB47BC;
     border-radius: 10px;
 }
 
 .ranking-container::-webkit-scrollbar-thumb:hover,
-.turmas-container-modal::-webkit-scrollbar-thumb:hover {
+.turmas-container-modal::-webkit-scrollbar-thumb:hover,
+.ranking-modal-conteudo::-webkit-scrollbar-thumb:hover {
     background: #8c66ff;
 }
 
@@ -939,7 +957,15 @@ body.quiz-body {
     }
     
     .ranking-modal-conteudo {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
         max-width: 90%;
+        /* Ajuste de padding-right para telas menores */
+        padding-right: 20px; /* Um pouco menos de padding para telas menores */
+        padding-left: 20px; /* Ajuste para manter simetria */
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 
     .opcoes-grid {
